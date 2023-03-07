@@ -5,9 +5,6 @@ FROM python:3.10
 RUN pip install json2args
 
 
-# Do anything you need to install tool dependencies here
-RUN echo "Replace this line with a tool"
-
 # create the tool input structure
 RUN mkdir /in
 COPY ./in /in
@@ -15,5 +12,11 @@ RUN mkdir /out
 RUN mkdir /src
 COPY ./src /src
 
+# Install the Whiteboxgis toolbox here
+RUN curl https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -o /src/wbt.zip
 WORKDIR /src
+RUN unzip wbt.zip
+RUN rm wbt.zip
+
+
 CMD ["python", "run.py"]
