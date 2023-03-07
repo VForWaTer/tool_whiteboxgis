@@ -8,3 +8,12 @@ tools:
         type: bool
         description: If True, an INFO.txt will be written
         default: true
+  fill_depressions:
+    title: Fill Depressions
+    description: Fill Depressions in a DEM using WhiteboxGIS fill_depressions tool
+    version: 0.1
+    parameters:
+      inputDEM: 
+        type: file
+        description: Input Raster DEM file 
+        default: true
