@@ -10,7 +10,7 @@ import lib as wblib
 kwargs = get_parameter()
 
 # check if a toolname was set in env
-toolname = os.environ.get('TOOL_RUN', 'fill_depressions').lower()
+toolname = os.environ.get('TOOL_RUN', 'whitebox_info').lower()
 
 # switch the tool
 if toolname == 'whitebox_info':
@@ -21,15 +21,16 @@ elif toolname == 'fill_depressions':
     # get the parameters
     try:
         inp = kwargs['inputDEM']
-        out = kwargs['outputDEM']
+        out = '/out/filled_DEM.tif'
         flats = kwargs.get('fix_flats', True)
     except Exception as e:
         print(str(e))
         sys.exit(1)
 
     # run the whitebox fill_depression algorithm
-    print('Filling Depressions...')
+    print(f"Filling depressions in DEM '{inp}'...",end='',flush=True)
     wblib.fill(inp,out,flats)
+    print('done.')
     
 
 # In any other case, it was not clear which tool to run

@@ -3,8 +3,7 @@
         "toFile": true
     },
     "fill_depressions": {
-        "inputDEM": '/in/DEMW22.tif',
-        "outputDEM": '/out/DEM_fill.tif',
+        "inputDEM": "/in/DEM_W22.tif",
         "fix_flats": true
     }
 }
