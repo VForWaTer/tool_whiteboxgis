@@ -8,3 +8,15 @@ tools:
         type: bool
         description: If True, an INFO.txt will be written
         default: true
+  fill_depressions:
+    title: Fill Depressions
+    description: Fill Depressions in a DEM using WhiteboxGIS [fill_depression](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#FillDepressions) tool
+    version: 0.1
+    parameters:
+      inputDEM: 
+        type: file
+        description: Input Raster DEM file 
+      fix_flats: 
+        type: bool
+        description: flag indicating whether flat areas should have a small gradient applied
+        default: true  

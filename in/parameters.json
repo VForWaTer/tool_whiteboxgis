@@ -1,5 +1,9 @@
 {
     "whitebox_info": {
         "toFile": true
+    },
+    "fill_depressions": {
+        "inputDEM": "/in/DEM_W22.tif",
+        "fix_flats": true
     }
 }
