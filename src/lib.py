@@ -9,5 +9,13 @@ def print_info(to_file: bool):
             f.write(info)
 
     # output 
-    print('I am updated')
     print(info)
+
+def fill(inp,out,flats):
+
+    wbt.fill_depressions(
+    inp, 
+    out, 
+    flats
+    )
+

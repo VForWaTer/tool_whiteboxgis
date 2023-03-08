@@ -16,4 +16,12 @@ tools:
       inputDEM: 
         type: file
         description: Input Raster DEM file 
-        default: true
+        default: 'in/DEMW22.tif'
+      outputDEM: 
+        type: file
+        description: Output Raster DEM file 
+        default: 'out/DEM_fill.tif'
+      fix_flats: 
+        type: bool
+        description: flag indicating whether flat areas should have a small gradient applied
+        default: true  
