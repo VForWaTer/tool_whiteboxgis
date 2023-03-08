@@ -1,7 +1,8 @@
 # tool_template_python
 
-[![Docker Image CI](https://github.com/VForWaTer/tool_template_python/actions/workflows/docker-image.yml/badge.svg)](https://github.com/VForWaTer/tool_template_python/actions/workflows/docker-image.yml)
-[![DOI](https://zenodo.org/badge/558416591.svg)](https://zenodo.org/badge/latestdoi/558416591)
+[![Docker Image CI](https://github.com/VForWaTer/tool_whiteboxgis/actions/workflows/docker-image.yml/badge.svg)](https://github.com/VForWaTer/tool_whiteboxgis/actions/workflows/docker-image.yml)
+[![DOI](https://zenodo.org/badge/610682357.svg)](https://zenodo.org/badge/latestdoi/610682357)
+
 
 This is the template for a generic containerized Python tool. This template can be used to generate new Github repositories from it.
 
