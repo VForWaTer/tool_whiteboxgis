@@ -22,7 +22,7 @@ elif toolname == 'fill_depressions':
     try:
         inp = kwargs['inputDEM']
         out = kwargs['outputDEM']
-        flats = kwargs['fix_flats']
+        flats = kwargs.get('fix_flats', True)
     except Exception as e:
         print(str(e))
         sys.exit(1)
