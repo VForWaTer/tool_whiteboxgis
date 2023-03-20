@@ -47,6 +47,23 @@ elif toolname == 'aspect':
     print(f"Calculating Slope Aspect in DEM '{inp}'...",end='',flush=True)
     wblib.aspect(inp,out,zfactor)
     print('done.')    
+
+ # Aspect tool
+elif toolname == 'flow_accumulation_d8':
+    # get the parameters
+    try:
+        inp = kwargs['filled_DEM']
+        out = '/out/flow_accu_DEM.tif'
+        type = kwargs.get('out_type', 'cells')
+        log = kwargs.get('log', False)
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
+
+    # run the whitebox fill_depression algorithm
+    print(f"Calculating Flow Accumulation  DEM '{inp}'...",end='',flush=True)
+    wblib.accu_d8(inp,out,type,log)
+    print('done.')       
     
 
 # In any other case, it was not clear which tool to run
