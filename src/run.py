@@ -20,8 +20,8 @@ if toolname == 'whitebox_info':
 elif toolname == 'fill_depressions':
     # get the parameters
     try:
-        inp = kwargs['inputDEM']
-        out = '/out/filled_DEM.tif'
+        inp = kwargs['dem']
+        out = '/out/filled_dem.tif'
         flats = kwargs.get('fix_flats', True)
     except Exception as e:
         print(str(e))
@@ -36,8 +36,8 @@ elif toolname == 'fill_depressions':
 elif toolname == 'aspect':
     # get the parameters
     try:
-        inp = kwargs['filled_DEM']
-        out = '/out/aspect_DEM.tif'
+        inp = kwargs['dem']
+        out = '/out/aspect.tif'
         zfactor = kwargs.get('z_factor', None)
     except Exception as e:
         print(str(e))
@@ -52,8 +52,8 @@ elif toolname == 'aspect':
 elif toolname == 'flow_accumulation_d8':
     # get the parameters
     try:
-        inp = kwargs['filled_DEM']
-        out = '/out/flow_accu_DEM.tif'
+        inp = kwargs['dem']
+        out = '/out/flow_accumulation.tif'
         type = kwargs.get('out_type', 'cells')
         log = kwargs.get('log', False)
     except Exception as e:
@@ -69,8 +69,8 @@ elif toolname == 'flow_accumulation_d8':
 elif toolname == 'flow_direction_d8':
     # get the parameters
     try:
-        inp = kwargs['filled_DEM']
-        out = '/out/flow_dir_DEM.tif'
+        inp = kwargs['dem']
+        out = '/out/flow_direction.tif'
     except Exception as e:
         print(str(e))
         sys.exit(1)
@@ -84,7 +84,7 @@ elif toolname == 'flow_direction_d8':
 elif toolname == 'stream_extraction':
     # get the parameters
     try:
-        inp = kwargs['flow_accu_DEM']
+        inp = kwargs['flow_accumulation']
         out = '/out/streams.tif'
         thres = kwargs['threshold']
     except Exception as e:
@@ -100,7 +100,7 @@ elif toolname == 'stream_extraction':
 elif toolname == 'hillslope_extraction':
     # get the parameters
     try:
-        inp = kwargs['flow_dir_DEM']
+        inp = kwargs['flow_direction']
         out = '/out/hillslopes.tif'
         stream = kwargs['streams']
     except Exception as e:
@@ -113,37 +113,22 @@ elif toolname == 'hillslope_extraction':
     print('done.')    
 
  # Elevation to River tool
-elif toolname == 'elevation_stream':
+elif toolname == 'stream_elev_dist':
     # get the parameters
     try:
-        inp = kwargs['filled_DEM']
-        out = '/out/elev2riv.tif'
+        inp = kwargs['DEM']
+        out1 = '/out/elevation.tif'
+        out2 = '/out/distance.tif'
         stream = kwargs['streams']
     except Exception as e:
         print(str(e))
         sys.exit(1)
 
     # run the whitebox algorithm
-    print(f"Elevation from River '{stream}'...",end='',flush=True)
-    wblib.elevation(inp,out,stream)
+    print(f" Distance and Elevation from River '{stream}'...",end='',flush=True)
+    wblib.distance(inp,out2,stream)
+    wblib.elevation(inp,out1,stream)
     print('done.')          
-
- # Distance to River tool
-elif toolname == 'distance_stream':
-    # get the parameters
-    try:
-        inp = kwargs['filled_DEM']
-        out = '/out/dist2riv.tif'
-        stream = kwargs['streams']
-    except Exception as e:
-        print(str(e))
-        sys.exit(1)
-
-    # run the whitebox algorithm
-    print(f"Distance from River '{stream}'...",end='',flush=True)
-    wblib.distance(inp,out,stream)
-    print('done.')     
-
 # In any other case, it was not clear which tool to run
 else:
     raise AttributeError(f"[{dt.now().isocalendar()}] Either no TOOL_RUN environment variable available, or '{toolname}' is not valid.\n")
