@@ -42,3 +42,11 @@ def dir_d8(inp,out):
     inp, 
     out, 
     )
+
+def stream(inp,out,thres):
+
+    wbt.extract_streams(
+    inp, 
+    out, 
+    thres, 
+    )   

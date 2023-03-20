@@ -56,5 +56,15 @@ tools:
       filled_DEM: 
         type: file
         description: Input Raster filled DEM file 
-     
+  stream_extraction:
+    title: Extract, or map, the likely stream cells
+    description: This tool can be used to extract, or map, the likely stream cells from an input flow-accumulation image by WhiteboxGIS [ExtractStreams](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/stream_network_analysis.html#ExtractStreams) tool
+    version: 0.1
+    parameters:
+      flow_accu_DEM: 
+        type: file
+        description: Flow Accumulation DEM file       
+      threshold: 
+        type: float
+        description: Threshold in flow accumulation values for channelization          
             
