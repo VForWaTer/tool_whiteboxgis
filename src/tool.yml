@@ -20,3 +20,15 @@ tools:
         type: bool
         description: flag indicating whether flat areas should have a small gradient applied
         default: true  
+  aspect:
+    title: Calculate Slope Aspect
+    description: Calculates slope aspect (i.e. slope orientation in degrees clockwise from north) for each grid cell in an input digital elevation model using WhiteboxGIS [Aspect](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/geomorphometric_analysis.html?highlight=aspect#aspect) tool
+    version: 0.1
+    parameters:
+      filled_DEM: 
+        type: file
+        description: Input Raster filled DEM file 
+      z_factor: 
+        type: float
+        description: Optional multiplier for when the vertical and horizontal units are not the same
+        default: None  

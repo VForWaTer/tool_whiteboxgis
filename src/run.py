@@ -31,6 +31,22 @@ elif toolname == 'fill_depressions':
     print(f"Filling depressions in DEM '{inp}'...",end='',flush=True)
     wblib.fill(inp,out,flats)
     print('done.')
+
+ # Aspect tool
+elif toolname == 'aspect':
+    # get the parameters
+    try:
+        inp = kwargs['filled_DEM']
+        out = '/out/aspect_DEM.tif'
+        zfactor = kwargs.get('z_factor', None)
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
+
+    # run the whitebox fill_depression algorithm
+    print(f"Calculating Slope Aspect in DEM '{inp}'...",end='',flush=True)
+    wblib.aspect(inp,out,zfactor)
+    print('done.')    
     
 
 # In any other case, it was not clear which tool to run

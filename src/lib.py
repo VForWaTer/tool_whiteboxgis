@@ -19,3 +19,10 @@ def fill(inp,out,flats):
     flats
     )
 
+def aspect(inp,out,zfactor):
+
+    wbt.aspect(
+    inp, 
+    out, 
+    zfactor
+    )
