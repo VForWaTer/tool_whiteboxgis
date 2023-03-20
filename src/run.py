@@ -102,7 +102,7 @@ elif toolname == 'hillslope_extraction':
     try:
         inp = kwargs['flow_direction']
         out = '/out/hillslopes.tif'
-        stream = kwargs['streams']
+        stream = kwargs['stream']
     except Exception as e:
         print(str(e))
         sys.exit(1)
@@ -116,10 +116,10 @@ elif toolname == 'hillslope_extraction':
 elif toolname == 'stream_elev_dist':
     # get the parameters
     try:
-        inp = kwargs['DEM']
+        inp = kwargs['dem']
         out1 = '/out/elevation.tif'
         out2 = '/out/distance.tif'
-        stream = kwargs['streams']
+        stream = kwargs['stream']
     except Exception as e:
         print(str(e))
         sys.exit(1)
