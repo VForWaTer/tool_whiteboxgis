@@ -26,3 +26,12 @@ def aspect(inp,out,zfactor):
     out, 
     zfactor
     )
+
+def accu_d8(inp,out,type,log):
+
+    wbt.d8_flow_accumulation(
+    inp, 
+    out, 
+    out_type=type, 
+    log=log, 
+    )

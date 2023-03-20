@@ -32,3 +32,20 @@ tools:
         type: float
         description: Optional multiplier for when the vertical and horizontal units are not the same
         default: None  
+  flow_accumulation_d8:
+    title: Generate a flow accumulation grid - D8
+    description: This tool is used to generate a flow accumulation grid (i.e. catchment area) using the D8 Algorithm by WhiteboxGIS [D8FlowAccumulation](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#d8flowaccumulation) tool
+    version: 0.1
+    parameters:
+      filled_DEM: 
+        type: file
+        description: Input Raster filled DEM file 
+      out_type: 
+        type: string
+        description: Output type; one of 'cells' (default), 'catchment area', and 'specific contributing area' (i.e. the catchment area divided by the flow width.
+        default: 'cells'          
+      log: 
+        type: bool
+        description: Optional flag to request the output be log-transformed
+        default: false 
+            
