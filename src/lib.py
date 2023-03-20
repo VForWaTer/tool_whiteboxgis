@@ -57,4 +57,20 @@ def hillslope(inp,out,stream):
     d8_pntr = inp, 
     streams = stream, 
     output = out, 
-    )     
+    )  
+
+def elevation(inp,out,stream):
+
+    wbt.elevation_above_stream(
+    dem = inp, 
+    streams = stream, 
+    output = out 
+    )    
+
+def distance(inp,out,stream):
+
+    wbt.downslope_distance_to_stream(
+    dem = inp, 
+    streams = stream, 
+    output = out 
+    )        

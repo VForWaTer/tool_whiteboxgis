@@ -63,7 +63,7 @@ tools:
     parameters:
       flow_accu_DEM: 
         type: file
-        description: Flow Accumulation DEM file       
+        description: Flow Accumulation file       
       threshold: 
         type: float
         description: Threshold in flow accumulation values for channelization          
@@ -74,8 +74,30 @@ tools:
     parameters:
       flow_dir_DEM: 
         type: file
-        description: Flow Direction DEM file       
+        description: Flow Direction file       
       stream: 
         type: file
-        description: Flow Direction DEM file              
+        description: Extracted Streams file              
+  elevation_stream:
+    title: To calculate the elevation of each grid cell in a raster above the nearest stream cell
+    description: This tool can be used to calculate the elevation of each grid cell in a raster above the nearest stream cell, measured along the downslope flowpath by WhiteboxGIS [ElevationAboveStream](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#elevationabovestream) tool
+    version: 0.1
+    parameters:
+      filled_DEM: 
+        type: file
+        description: Input Raster filled DEM file  
+      stream: 
+        type: file
+        description: Extracted Streams file       
+  distance_stream:
+    title: To calculate the distance from each grid cell in a raster to the nearest stream cell
+    description: This tool can be used to calculate the distance from each grid cell in a raster to the nearest stream cell, measured along the downslope flowpath by WhiteboxGIS [DownslopeDistanceToStream](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#downslopedistancetostream) tool
+    version: 0.1
+    parameters:
+      filled_DEM: 
+        type: file
+        description: Input Raster filled DEM file  
+      stream: 
+        type: file
+        description: Extracted Streams file                      
             

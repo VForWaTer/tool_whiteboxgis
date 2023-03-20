@@ -76,7 +76,7 @@ elif toolname == 'flow_direction_d8':
         sys.exit(1)
 
     # run the whitebox algorithm
-    print(f"Calculating Flow Direction DEM '{inp}'...",end='',flush=True)
+    print(f"Calculating Flow Direction '{inp}'...",end='',flush=True)
     wblib.dir_d8(inp,out)
     print('done.')  
 
@@ -92,7 +92,7 @@ elif toolname == 'stream_extraction':
         sys.exit(1)
 
     # run the whitebox algorithm
-    print(f"Stream Extraction from DEM '{inp}'...",end='',flush=True)
+    print(f"Stream Extraction from '{inp}'...",end='',flush=True)
     wblib.stream(inp,out,thres)
     print('done.')     
 
@@ -108,9 +108,41 @@ elif toolname == 'hillslope_extraction':
         sys.exit(1)
 
     # run the whitebox algorithm
-    print(f"Hillslope Extraction from DEM '{inp}'...",end='',flush=True)
+    print(f"Hillslope Extraction from  '{inp}'...",end='',flush=True)
     wblib.hillslope(inp,out,stream)
-    print('done.')        
+    print('done.')    
+
+ # Elevation to River tool
+elif toolname == 'elevation_stream':
+    # get the parameters
+    try:
+        inp = kwargs['filled_DEM']
+        out = '/out/elev2riv.tif'
+        stream = kwargs['streams']
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
+
+    # run the whitebox algorithm
+    print(f"Elevation from River '{stream}'...",end='',flush=True)
+    wblib.elevation(inp,out,stream)
+    print('done.')          
+
+ # Distance to River tool
+elif toolname == 'distance_stream':
+    # get the parameters
+    try:
+        inp = kwargs['filled_DEM']
+        out = '/out/dist2riv.tif'
+        stream = kwargs['streams']
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
+
+    # run the whitebox algorithm
+    print(f"Distance from River '{stream}'...",end='',flush=True)
+    wblib.distance(inp,out,stream)
+    print('done.')     
 
 # In any other case, it was not clear which tool to run
 else:
