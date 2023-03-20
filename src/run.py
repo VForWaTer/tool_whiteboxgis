@@ -48,7 +48,7 @@ elif toolname == 'aspect':
     wblib.aspect(inp,out,zfactor)
     print('done.')    
 
- # Aspect tool
+ # Flow Accumulation tool
 elif toolname == 'flow_accumulation_d8':
     # get the parameters
     try:
@@ -60,11 +60,42 @@ elif toolname == 'flow_accumulation_d8':
         print(str(e))
         sys.exit(1)
 
-    # run the whitebox fill_depression algorithm
+    # run the whitebox  algorithm
     print(f"Calculating Flow Accumulation  DEM '{inp}'...",end='',flush=True)
     wblib.accu_d8(inp,out,type,log)
     print('done.')       
     
+ # Flow Accumulation tool
+elif toolname == 'flow_accumulation_d8':
+    # get the parameters
+    try:
+        inp = kwargs['filled_DEM']
+        out = '/out/flow_accu_DEM.tif'
+        type = kwargs.get('out_type', 'cells')
+        log = kwargs.get('log', False)
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
+
+    # run the whitebox algorithm
+    print(f"Calculating Flow Accumulation  DEM '{inp}'...",end='',flush=True)
+    wblib.accu_d8(inp,out,type,log)
+    print('done.')   
+
+ # Flow Direction tool
+elif toolname == 'flow_direction_d8':
+    # get the parameters
+    try:
+        inp = kwargs['filled_DEM']
+        out = '/out/flow_dir_DEM.tif'
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
+
+    # run the whitebox algorithm
+    print(f"Calculating Flow Direction DEM '{inp}'...",end='',flush=True)
+    wblib.dir_d8(inp,out)
+    print('done.')  
 
 # In any other case, it was not clear which tool to run
 else:
