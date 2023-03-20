@@ -35,3 +35,10 @@ def accu_d8(inp,out,type,log):
     out_type=type, 
     log=log, 
     )
+
+def dir_d8(inp,out):
+
+    wbt.d8_pointer(
+    inp, 
+    out, 
+    )

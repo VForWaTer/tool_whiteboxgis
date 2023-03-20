@@ -48,4 +48,13 @@ tools:
         type: bool
         description: Optional flag to request the output be log-transformed
         default: false 
+  flow_direction_d8:
+    title: Generate a flow pointer grid - D8
+    description: This tool is used to generate a flow pointer grid  using the D8 Algorithm by WhiteboxGIS [D8Pointer](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#d8pointer) tool
+    version: 0.1
+    parameters:
+      filled_DEM: 
+        type: file
+        description: Input Raster filled DEM file 
+     
             
