@@ -85,7 +85,7 @@ elif toolname == 'stream_extraction':
     # get the parameters
     try:
         inp = kwargs['flow_accu_DEM']
-        out = '/out/stream_DEM.tif'
+        out = '/out/streams.tif'
         thres = kwargs['threshold']
     except Exception as e:
         print(str(e))
@@ -94,7 +94,23 @@ elif toolname == 'stream_extraction':
     # run the whitebox algorithm
     print(f"Stream Extraction from DEM '{inp}'...",end='',flush=True)
     wblib.stream(inp,out,thres)
-    print('done.')      
+    print('done.')     
+
+ # Hillslope Extraction tool
+elif toolname == 'hillslope_extraction':
+    # get the parameters
+    try:
+        inp = kwargs['flow_dir_DEM']
+        out = '/out/hillslopes.tif'
+        stream = kwargs['streams']
+    except Exception as e:
+        print(str(e))
+        sys.exit(1)
+
+    # run the whitebox algorithm
+    print(f"Hillslope Extraction from DEM '{inp}'...",end='',flush=True)
+    wblib.hillslope(inp,out,stream)
+    print('done.')        
 
 # In any other case, it was not clear which tool to run
 else:

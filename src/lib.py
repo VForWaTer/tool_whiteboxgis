@@ -50,3 +50,11 @@ def stream(inp,out,thres):
     out, 
     thres, 
     )   
+
+def hillslope(inp,out,stream):
+
+    wbt.hillslopes(
+    d8_pntr = inp, 
+    streams = stream, 
+    output = out, 
+    )     

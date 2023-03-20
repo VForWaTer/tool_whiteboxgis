@@ -67,4 +67,15 @@ tools:
       threshold: 
         type: float
         description: Threshold in flow accumulation values for channelization          
+  hillslope_extraction:
+    title: Identify the hillslopes associated with a user-specified stream network
+    description: This tool identify the hillslopes associated with a user-specified stream network by WhiteboxGIS [Hillslopes](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#hillslopes) tool
+    version: 0.1
+    parameters:
+      flow_dir_DEM: 
+        type: file
+        description: Flow Direction DEM file       
+      stream: 
+        type: file
+        description: Flow Direction DEM file              
             
