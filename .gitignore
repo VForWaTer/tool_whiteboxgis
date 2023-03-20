@@ -130,3 +130,6 @@ dmypy.json
 
 # Desktop.ini
 desktop.ini
+
+# .tif extra file extension
+.aux.xml
