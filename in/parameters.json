@@ -5,5 +5,30 @@
     "fill_depressions": {
         "inputDEM": "/in/DEM_W22.tif",
         "fix_flats": true
-    }
+    },
+    "aspect": {
+        "dem": "/in/DEM_W22.tif",
+        "z_factor": "None"
+    },
+    "flow_accumulation_d8": {
+        "dem": "/in/DEM_W22.tif",
+        "out_type": "cells",
+        "log": false
+    },
+    "flow_direction_d8": {
+        "dem": "/in/DEM_W22.tif"
+    },
+    "stream_extraction": {
+        "flow_accumulation": "/in/flow_accumulation.tif",
+        "threshold": 80
+    },
+    "hillslope_extraction": {
+        "flow_direction": "/in/flow_direction.tif",
+        "stream": "/in/streams.tif"
+    }   
+    ,
+    "stream_elev_dist": {
+        "dem": "/in/DEM_W22.tif",
+        "stream": "/in/streams.tif"
+    }                   
 }
