@@ -1,10 +1,11 @@
-# tool_template_python
+# WhiteboxGIS tool
 
 [![Docker Image CI](https://github.com/VForWaTer/tool_whiteboxgis/actions/workflows/docker-image.yml/badge.svg)](https://github.com/VForWaTer/tool_whiteboxgis/actions/workflows/docker-image.yml)
 [![DOI](https://zenodo.org/badge/610682357.svg)](https://zenodo.org/badge/latestdoi/610682357)
 
+This is a containerized version of Whiteboxgis tools, that implements workflows for a number of analyses. It follows the Tool Specification for reusable research software using Docker.
 
-This is the template for a generic containerized Python tool. This template can be used to generate new Github repositories from it.
+This tool is not finished.
 
 ## How generic?
 
