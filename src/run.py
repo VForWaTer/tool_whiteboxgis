@@ -21,63 +21,37 @@ elif toolname == 'catflow_hillslope_generator':
     # get the parameters
     try:
         inp = kwargs['dem']
-        out = '/out/filled_dem.tif'
-        flats = kwargs.get('fix_flats', True)
+        clip = kwargs.get('clip_extent', False)
+        shp = kwargs.get('shapefile', '/in/Shapefile.shp')
+        thres = kwargs.get('stream_threshold', 100.0)
     except Exception as e:
         print(str(e))
         sys.exit(1)
+    
+    # Define the output file locations
+    filled = '/out/fill_DEM.tif'
+    aspect = '/out/aspect.tif'
+    accu = '/out/flow_accumulation.tif'
+    flowdir = '/out/flow_direction.tif'
 
     # run the whitebox fill_depression algorithm
     print(f"Filling depressions in DEM '{inp}'...",end='',flush=True)
-    wblib.fill(inp,out,flats)
+    wblib.fill(inp,filled)
     print('done.')
 
- # Aspect tool
-elif toolname == 'aspect':
-    # get the parameters
-    try:
-        inp = kwargs['dem']
-        out = '/out/aspect.tif'
-        zfactor = kwargs.get('z_factor', None)
-    except Exception as e:
-        print(str(e))
-        sys.exit(1)
-
-    # run the whitebox fill_depression algorithm
-    print(f"Calculating Slope Aspect in DEM '{inp}'...",end='',flush=True)
-    wblib.aspect(inp,out,zfactor)
+    #Aspect algorithm
+    print(f"Calculating Slope Aspect in DEM '{filled}'...",end='',flush=True)
+    wblib.aspect(filled,aspect)
     print('done.')    
 
- # Flow Accumulation tool
-elif toolname == 'flow_accumulation_d8':
-    # get the parameters
-    try:
-        inp = kwargs['dem']
-        out = '/out/flow_accumulation.tif'
-        type = kwargs.get('out_type', 'cells')
-        log = kwargs.get('log', False)
-    except Exception as e:
-        print(str(e))
-        sys.exit(1)
-
-    # run the whitebox  algorithm
-    print(f"Calculating Flow Accumulation  DEM '{inp}'...",end='',flush=True)
-    wblib.accu_d8(inp,out,type,log)
+    #Flow Accumulation Algorithm
+    print(f"Calculating Flow Accumulation  DEM '{filled}'...",end='',flush=True)
+    wblib.accu_d8(filled,accu)
     print('done.')       
     
- # Flow Direction tool
-elif toolname == 'flow_direction_d8':
-    # get the parameters
-    try:
-        inp = kwargs['dem']
-        out = '/out/flow_direction.tif'
-    except Exception as e:
-        print(str(e))
-        sys.exit(1)
-
-    # run the whitebox algorithm
+   #Flow Direction Algorithm
     print(f"Calculating Flow Direction '{inp}'...",end='',flush=True)
-    wblib.dir_d8(inp,out)
+    wblib.dir_d8(inp,flowdir)
     print('done.')  
 
  # Stream Extraction tool
@@ -93,7 +67,7 @@ elif toolname == 'stream_extraction':
 
     # run the whitebox algorithm
     print(f"Stream Extraction from '{inp}'...",end='',flush=True)
-    wblib.stream(inp,out,thres)
+    wblib.stream(accu,out,thres)
     print('done.')     
 
  # Hillslope Extraction tool

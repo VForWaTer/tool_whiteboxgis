@@ -13,25 +13,23 @@ def print_info(to_file: bool):
     print(info)
 
 
-def fill(inp, out, flats):
-    wbt.fill_depressions(inp, out, flats)
+def fill(inp, out):
+    wbt.fill_depressions(inp, out)
 
 
-def aspect(inp,out,zfactor):
+def aspect(inp,out):
 
     wbt.aspect(
     inp, 
     out, 
-    zfactor
     )
 
-def accu_d8(inp,out,type,log):
+def accu_d8(inp,out):
 
     wbt.d8_flow_accumulation(
     inp, 
     out, 
-    out_type=type, 
-    log=log, 
+    out_type='cells', 
     )
 
 def dir_d8(inp,out):
