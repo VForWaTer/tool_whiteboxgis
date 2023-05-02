@@ -1,5 +1,6 @@
 from wbt import wbt
 
+
 def print_info(to_file: bool):
     info = wbt.version()
 
@@ -11,13 +12,10 @@ def print_info(to_file: bool):
     # output 
     print(info)
 
-def fill(inp,out,flats):
 
-    wbt.fill_depressions(
-    inp, 
-    out, 
-    flats
-    )
+def fill(inp, out, flats):
+    wbt.fill_depressions(inp, out, flats)
+
 
 def aspect(inp,out,zfactor):
 

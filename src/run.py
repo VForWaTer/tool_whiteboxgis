@@ -16,8 +16,8 @@ toolname = os.environ.get('TOOL_RUN', 'whitebox_info').lower()
 if toolname == 'whitebox_info':
     wblib.print_info(to_file=kwargs.get('toFile', True))
 
- # Fill Depression tool
-elif toolname == 'fill_depressions':
+ # Tool for generating required Raster files for CATFLOW Hillslope Wizard
+elif toolname == 'catflow_hillslope_generator':
     # get the parameters
     try:
         inp = kwargs['dem']
@@ -125,9 +125,9 @@ elif toolname == 'stream_elev_dist':
         sys.exit(1)
 
     # run the whitebox algorithm
-    print(f" Distance and Elevation from River '{stream}'...",end='',flush=True)
-    wblib.distance(inp,out2,stream)
-    wblib.elevation(inp,out1,stream)
+    print(f" Distance and Elevation from River '{stream}'...", end='', flush=True)
+    wblib.distance(inp, out2, stream)
+    wblib.elevation(inp, out1, stream)
     print('done.')          
 # In any other case, it was not clear which tool to run
 else:
