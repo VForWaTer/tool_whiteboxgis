@@ -27,12 +27,19 @@ elif toolname == 'catflow_hillslope_generator':
     except Exception as e:
         print(str(e))
         sys.exit(1)
+        
+    if(clip):
+        wblib.clip(inp,inp,shp)   
     
     # Define the output file locations
     filled = '/out/fill_DEM.tif'
     aspect = '/out/aspect.tif'
     accu = '/out/flow_accumulation.tif'
     flowdir = '/out/flow_direction.tif'
+    streams = '/out/streams.tif'
+    hillslope = '/out/hillslopes.tif'
+    elevation = '/out/elevation.tif'
+    distance = '/out/distance.tif'
 
     # run the whitebox fill_depression algorithm
     print(f"Filling depressions in DEM '{inp}'...",end='',flush=True)
@@ -50,59 +57,26 @@ elif toolname == 'catflow_hillslope_generator':
     print('done.')       
     
    #Flow Direction Algorithm
-    print(f"Calculating Flow Direction '{inp}'...",end='',flush=True)
-    wblib.dir_d8(inp,flowdir)
+    print(f"Calculating Flow Direction '{filled}'...",end='',flush=True)
+    wblib.dir_d8(filled,flowdir)
     print('done.')  
 
- # Stream Extraction tool
-elif toolname == 'stream_extraction':
-    # get the parameters
-    try:
-        inp = kwargs['flow_accumulation']
-        out = '/out/streams.tif'
-        thres = kwargs['threshold']
-    except Exception as e:
-        print(str(e))
-        sys.exit(1)
-
-    # run the whitebox algorithm
-    print(f"Stream Extraction from '{inp}'...",end='',flush=True)
-    wblib.stream(accu,out,thres)
+   #Stream Extraction tool
+    print(f"Stream Extraction from '{accu}'...",end='',flush=True)
+    wblib.stream(accu,streams,thres)
     print('done.')     
 
- # Hillslope Extraction tool
-elif toolname == 'hillslope_extraction':
-    # get the parameters
-    try:
-        inp = kwargs['flow_direction']
-        out = '/out/hillslopes.tif'
-        stream = kwargs['stream']
-    except Exception as e:
-        print(str(e))
-        sys.exit(1)
-
-    # run the whitebox algorithm
-    print(f"Hillslope Extraction from  '{inp}'...",end='',flush=True)
-    wblib.hillslope(inp,out,stream)
+   #Hillslope Extraction tool
+    print(f"Hillslope Extraction from  '{flowdir}'...",end='',flush=True)
+    wblib.hillslope(flowdir,hillslope,streams)
     print('done.')    
 
- # Elevation to River tool
-elif toolname == 'stream_elev_dist':
-    # get the parameters
-    try:
-        inp = kwargs['dem']
-        out1 = '/out/elevation.tif'
-        out2 = '/out/distance.tif'
-        stream = kwargs['stream']
-    except Exception as e:
-        print(str(e))
-        sys.exit(1)
+  #Elevation to River tool
+    print(f" Distance and Elevation from River '{streams}'...", end='', flush=True)
+    wblib.distance(filled, elevation, streams)
+    wblib.elevation(filled, distance, streams)
+    print('done.')   
 
-    # run the whitebox algorithm
-    print(f" Distance and Elevation from River '{stream}'...", end='', flush=True)
-    wblib.distance(inp, out2, stream)
-    wblib.elevation(inp, out1, stream)
-    print('done.')          
 # In any other case, it was not clear which tool to run
 else:
     raise AttributeError(f"[{dt.now().isocalendar()}] Either no TOOL_RUN environment variable available, or '{toolname}' is not valid.\n")

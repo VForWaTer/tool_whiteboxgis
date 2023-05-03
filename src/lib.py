@@ -12,6 +12,13 @@ def print_info(to_file: bool):
     # output 
     print(info)
 
+def clip(inp,out,shp):
+
+    wbt.clip(
+    i=inp, 
+    clip=shp,
+    output=out, 
+    )
 
 def fill(inp, out):
     wbt.fill_depressions(inp, out)
