@@ -17,12 +17,12 @@ if toolname == 'whitebox_info':
     wblib.print_info(to_file=kwargs.get('toFile', True))
 
  # Tool for generating required Raster files for CATFLOW Hillslope Wizard
-elif toolname == 'catflow_hillslope_generator':
+elif toolname == 'hillslope_generator':
     # get the parameters
     try:
         inp = kwargs['dem']
         clip = kwargs.get('clip_extent', False)
-        shp = kwargs.get('shapefile', '/in/Shapefile.shp')
+        shp = kwargs.get('basins', '/in/basin.shp')
         thres = kwargs.get('stream_threshold', 100.0)
     except Exception as e:
         print(str(e))

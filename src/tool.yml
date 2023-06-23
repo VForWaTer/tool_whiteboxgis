@@ -8,7 +8,7 @@ tools:
         type: bool
         description: If True, an INFO.txt will be written
         default: true
-    catflow_hillslope_generator:
+    hillslope_generator:
     title: CATFLOW Hillslope Generator
     description: Produces the required Raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/) Platform
     version: 0.1
@@ -20,7 +20,7 @@ tools:
         type: bool
         description: flag indicating whether the processing area should be clipped based on a provided shapefile
         default: false        
-      shapefile: 
+      basins: 
         type: file
         description: Input shapefile for clipping the processing extent           
       stream_threshold: 
