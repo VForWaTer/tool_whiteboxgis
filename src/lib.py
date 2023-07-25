@@ -1,5 +1,6 @@
 from wbt import wbt
 
+
 def print_info(to_file: bool):
     info = wbt.version()
 
@@ -11,29 +12,31 @@ def print_info(to_file: bool):
     # output 
     print(info)
 
-def fill(inp,out,flats):
+def clip(inp,out,shp):
 
-    wbt.fill_depressions(
-    inp, 
-    out, 
-    flats
+    wbt.clip(
+    i=inp, 
+    clip=shp,
+    output=out, 
     )
 
-def aspect(inp,out,zfactor):
+def fill(inp, out):
+    wbt.fill_depressions(inp, out)
+
+
+def aspect(inp,out):
 
     wbt.aspect(
     inp, 
     out, 
-    zfactor
     )
 
-def accu_d8(inp,out,type,log):
+def accu_d8(inp,out):
 
     wbt.d8_flow_accumulation(
     inp, 
     out, 
-    out_type=type, 
-    log=log, 
+    out_type='cells', 
     )
 
 def dir_d8(inp,out):

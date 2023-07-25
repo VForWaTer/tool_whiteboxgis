@@ -8,88 +8,21 @@ tools:
         type: bool
         description: If True, an INFO.txt will be written
         default: true
-  fill_depressions:
-    title: Fill Depressions
-    description: Fill Depressions in a DEM using WhiteboxGIS [fill_depression](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#FillDepressions) tool
+    hillslope_generator:
+    title: CATFLOW Hillslope Generator
+    description: Produces the required Raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/) Platform
     version: 0.1
     parameters:
       dem: 
         type: file
         description: Input Raster DEM file 
-      fix_flats: 
+      clip_extent: 
         type: bool
-        description: flag indicating whether flat areas should have a small gradient applied
-        default: true  
-  aspect:
-    title: Calculate Slope Aspect
-    description: Calculates slope aspect (i.e. slope orientation in degrees clockwise from north) for each grid cell in an input digital elevation model using WhiteboxGIS [Aspect](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/geomorphometric_analysis.html?highlight=aspect#aspect) tool
-    version: 0.1
-    parameters:
-      dem: 
+        description: flag indicating whether the processing area should be clipped based on a provided shapefile
+        default: false        
+      basins: 
         type: file
-        description: Input Raster filled DEM file 
-      z_factor: 
+        description: Input shapefile for clipping the processing extent           
+      stream_threshold: 
         type: float
-        description: Optional multiplier for when the vertical and horizontal units are not the same
-        default: None  
-  flow_accumulation_d8:
-    title: Generate a flow accumulation grid - D8
-    description: This tool is used to generate a flow accumulation grid (i.e. catchment area) using the D8 Algorithm by WhiteboxGIS [D8FlowAccumulation](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#d8flowaccumulation) tool
-    version: 0.1
-    parameters:
-      dem: 
-        type: file
-        description: Input Raster filled DEM file 
-      out_type: 
-        type: string
-        description: Output type; one of 'cells' (default), 'catchment area', and 'specific contributing area' (i.e. the catchment area divided by the flow width.
-        default: 'cells'          
-      log: 
-        type: bool
-        description: Optional flag to request the output be log-transformed
-        default: false 
-  flow_direction_d8:
-    title: Generate a flow pointer grid - D8
-    description: This tool is used to generate a flow pointer grid  using the D8 Algorithm by WhiteboxGIS [D8Pointer](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#d8pointer) tool
-    version: 0.1
-    parameters:
-      dem: 
-        type: file
-        description: Input Raster filled DEM file 
-  stream_extraction:
-    title: Extract, or map, the likely stream cells
-    description: This tool can be used to extract, or map, the likely stream cells from an input flow-accumulation image by WhiteboxGIS [ExtractStreams](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/stream_network_analysis.html#ExtractStreams) tool
-    version: 0.1
-    parameters:
-      flow_accumulation: 
-        type: file
-        description: Flow Accumulation file       
-      threshold: 
-        type: float
-        description: Threshold in flow accumulation values for channelization          
-  hillslope_extraction:
-    title: Identify the hillslopes associated with a user-specified stream network
-    description: This tool identify the hillslopes associated with a user-specified stream network by WhiteboxGIS [Hillslopes](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#hillslopes) tool
-    version: 0.1
-    parameters:
-      flow_direction: 
-        type: file
-        description: Flow Direction file       
-      stream: 
-        type: file
-        description: Extracted Streams file              
-  stream_elev_dist:
-    title: To calculate the distance and elevation of each grid cell in a raster above the nearest stream cell
-    description: This tool can be used to calculate the elevation and distance of each grid cell in a raster using
-                 Whitebox GIS tools [ElevationAboveStream](https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#ElevationAboveStream)
-                 [DownslopeDistanceToStream] (https://www.whiteboxgeo.com/manual/wbt_book/available_tools/hydrological_analysis.html#downslopedistancetostream)
-    version: 0.1
-    parameters:
-      dem: 
-        type: file
-        description: Input DEM file  
-      stream: 
-        type: file
-        description: Extracted Streams file       
-               
-            
+        description: Threshold in flow accumulation values for channelization (extracting streams)    
