@@ -24,5 +24,5 @@ tools:
         type: file
         description: Input shapefile for clipping the processing extent           
       stream_threshold: 
-        type: float
+        type: int
         description: Threshold in flow accumulation values for channelization (extracting streams)    
