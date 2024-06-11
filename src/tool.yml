@@ -12,20 +12,13 @@ tools:
     title: CATFLOW Hillslope Generator
     description:  Produces the required Raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/) 
     version: 0.1
-    parameters:
-      clip_extent: 
-        type: bool
-        description: flag indicating whether the processing area should be clipped based on a provided shapefile
-        default: false               
+    parameters:             
       stream_threshold: 
         type: float
         description: Threshold in flow accumulation values for channelization (extracting streams)    
     data:
-      dem_file:
+      dem:
         example: /in/dem.tiff
         extension: 
          - tiff
         description: The Input DEM file to be used for running the tool .TIFF format
-      basins: 
-        example: /in/study_area.shp
-        description: Input shapefile for clipping the processing extent, used only if clip_extent is set to true.    

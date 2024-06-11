@@ -2,12 +2,18 @@ import os
 import sys
 from datetime import datetime as dt
 from pprint import pprint
+from pathlib import Path
 
 from json2args import get_parameter
+from json2args.data import get_data_paths
 import lib as wblib
 
 # parse parameters
 kwargs = get_parameter()
+data_paths = get_data_paths()
+    
+# extract the  path
+dem_path = data_paths['dem']
 
 # check if a toolname was set in env
 toolname = os.environ.get('TOOL_RUN', 'whitebox_info').lower()
@@ -20,18 +26,13 @@ if toolname == 'whitebox_info':
 elif toolname == 'hillslope_generator':
     # get the parameters
     try:
-        inp = kwargs['dem']
-        clip = kwargs.get('clip_extent', False)
-        shp = kwargs.get('basins', '/in/basin.shp')
         thres = kwargs.get('stream_threshold', 100.0)
     except Exception as e:
         print(str(e))
         sys.exit(1)
-        
-    if(clip):
-        wblib.clip(inp,inp,shp)   
-    
+         
     # Define the output file locations
+    inp=dem_path
     filled = '/out/fill_DEM.tif'
     aspect = '/out/aspect.tif'
     accu = '/out/flow_accumulation.tif'
