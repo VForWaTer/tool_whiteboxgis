@@ -15,8 +15,10 @@ COPY ./src /src
 # Install the Whiteboxgis toolbox here
 RUN curl https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.zip -o /src/wbt.zip
 WORKDIR /src
-RUN unzip wbt.zip
-RUN rm wbt.zip
+RUN unzip wbt.zip && \
+    rm wbt.zip && \
+    mv WhiteboxTools_linux_amd64/WBT/ /src/WBT && \
+    rm -rf WhiteboxTools_linux_amd64
 
 
 CMD ["python", "run.py"]
