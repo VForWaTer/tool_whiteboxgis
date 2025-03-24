@@ -20,6 +20,7 @@ This is a containerized version of Whiteboxgis tools, that implements workflows 
 - `stream_threshold` (float): Threshold in flow accumulation values for channelization (extracting streams)
 
 **Data:**
-- `dem` (file): The Input DEM file to be used for running the tool (.TIFF format)
+- `dem` (file): The Input DEM file to be used for running the tool (.TIFF/.TIF format)
   - Example: `/in/dem.tif`
+  
 
