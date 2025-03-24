@@ -9,7 +9,7 @@
         "stream_threshold":100
     },    	
         "data": {        
-        "dem": "/in/dem.tiff"
+        "dem": "/in/dem.tif"
     }   
     }             
 }

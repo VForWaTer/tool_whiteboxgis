@@ -1,38 +1,36 @@
 import os
 import sys
 from datetime import datetime as dt
-from pprint import pprint
 from pathlib import Path
 
 from json2args import get_parameter
 from json2args.data import get_data_paths
+from json2args.logger import logger
 import lib as wblib
 
 # parse parameters
-kwargs = get_parameter()
-data_paths = get_data_paths()
-    
-# extract the  path
-dem_path = data_paths['dem']
-
+kwargs = get_parameter(typed=True)
 # check if a toolname was set in env
 toolname = os.environ.get('TOOL_RUN', 'whitebox_info').lower()
 
 # switch the tool
 if toolname == 'whitebox_info':
-    wblib.print_info(to_file=kwargs.get('toFile', True))
+    wblib.logger.info_info(to_file=kwargs.get('toFile', True))
+    sys.exit(0)
+
+# data is only needed for all but the info tool
+data_paths = get_data_paths()
+if 'dem' not in data_paths:
+    logger.error("DEM not found in input data")
+    sys.exit(1)
 
  # Tool for generating required Raster files for CATFLOW Hillslope Wizard
-elif toolname == 'hillslope_generator':
+if toolname == 'hillslope_generator':
     # get the parameters
-    try:
-        thres = kwargs.get('stream_threshold', 100.0)
-    except Exception as e:
-        print(str(e))
-        sys.exit(1)
-         
+    #thres = kwargs.get('stream_threshold', 100.0)
+
     # Define the output file locations
-    inp=dem_path
+    inp=data_paths['dem']
     filled = '/out/fill_DEM.tif'
     aspect = '/out/aspect.tif'
     accu = '/out/flow_accumulation.tif'
@@ -43,40 +41,40 @@ elif toolname == 'hillslope_generator':
     distance = '/out/distance.tif'
 
     # run the whitebox fill_depression algorithm
-    print(f"Filling depressions in DEM '{inp}'...",end='',flush=True)
+    logger.info(f"Filling depressions in DEM '{inp}'...")
     wblib.fill(inp,filled)
-    print('done.')
+    logger.info('done.')
 
     #Aspect algorithm
-    print(f"Calculating Slope Aspect in DEM '{filled}'...",end='',flush=True)
+    logger.info(f"Calculating Slope Aspect in DEM '{filled}'...")
     wblib.aspect(filled,aspect)
-    print('done.')    
+    logger.info('done.')    
 
     #Flow Accumulation Algorithm
-    print(f"Calculating Flow Accumulation  DEM '{filled}'...",end='',flush=True)
+    logger.info(f"Calculating Flow Accumulation  DEM '{filled}'...")
     wblib.accu_d8(filled,accu)
-    print('done.')       
+    logger.info('done.')       
     
    #Flow Direction Algorithm
-    print(f"Calculating Flow Direction '{filled}'...",end='',flush=True)
+    logger.info(f"Calculating Flow Direction '{filled}'...")
     wblib.dir_d8(filled,flowdir)
-    print('done.')  
+    logger.info('done.')  
 
    #Stream Extraction tool
-    print(f"Stream Extraction from '{accu}'...",end='',flush=True)
-    wblib.stream(accu,streams,thres)
-    print('done.')     
+    logger.info(f"Stream Extraction from '{accu}'...")
+    wblib.stream(accu,streams, kwargs.stream_threshold)
+    logger.info('done.')     
 
    #Hillslope Extraction tool
-    print(f"Hillslope Extraction from  '{flowdir}'...",end='',flush=True)
+    logger.info(f"Hillslope Extraction from  '{flowdir}'...")
     wblib.hillslope(flowdir,hillslope,streams)
-    print('done.')    
+    logger.info('done.')    
 
   #Elevation to River tool
-    print(f" Distance and Elevation from River '{streams}'...", end='', flush=True)
+    logger.info(f" Distance and Elevation from River '{streams}'...")
     wblib.distance(filled, elevation, streams)
     wblib.elevation(filled, distance, streams)
-    print('done.')   
+    logger.info('done.')   
 
 # In any other case, it was not clear which tool to run
 else:

@@ -16,7 +16,8 @@ tools:
         description: Threshold in flow accumulation values for channelization (extracting streams)    
     data:
       dem:
-        example: /in/dem.tiff
+        example: /in/dem.tif
         extension: 
          - tiff
+         - tif
         description: The Input DEM file to be used for running the tool .TIFF format
