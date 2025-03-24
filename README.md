@@ -21,5 +21,5 @@ This is a containerized version of Whiteboxgis tools, that implements workflows 
 
 **Data:**
 - `dem` (file): The Input DEM file to be used for running the tool (.TIFF format)
-  - Example: `/in/dem.tiff`
+  - Example: `/in/dem.tif`
 
