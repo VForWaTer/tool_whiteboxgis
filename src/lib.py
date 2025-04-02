@@ -1,5 +1,7 @@
 from wbt import wbt
-
+from json2args.logger import logger
+import os
+from pathlib import Path
 
 def print_info(to_file: bool):
     info = wbt.version()
@@ -76,4 +78,29 @@ def distance(inp,out,stream):
     dem = inp, 
     streams = stream, 
     output = out 
-    )        
+    )   
+
+def mosaic_tool(input_dir, output_file, method):
+    # Ensure the input directory exists
+    if not os.path.exists(input_dir):
+        logger.error(f"Input directory '{input_dir}' does not exist.")
+        return
+
+    # Gather all TIFF files in the input directory
+    input_files = list(Path(input_dir).glob("*.tif"))
+    if not input_files:
+        logger.error(f"No TIFF files found in '{input_dir}'.")
+        return
+
+    # Convert input files to a comma-separated string
+    input_files_str = ",".join(str(file) for file in input_files)
+
+    # Log the input files being processed
+    logger.info(f"Mosaicking the following files: {input_files_str}")
+
+    # Execute the mosaic function
+    try:
+        wbt.mosaic(inputs=input_files_str, output=output_file, method=method)
+        logger.info(f"Mosaic created successfully and saved to '{output_file}'.")
+    except Exception as e:
+        logger.error(f"An error occurred while creating the mosaic: {e}")

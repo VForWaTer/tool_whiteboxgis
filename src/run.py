@@ -18,11 +18,8 @@ if toolname == 'whitebox_info':
     wblib.logger.info_info(to_file=kwargs.get('toFile', True))
     sys.exit(0)
 
-# data is only needed for all but the info tool
+
 data_paths = get_data_paths()
-if 'dem' not in data_paths:
-    logger.error("DEM not found in input data")
-    sys.exit(1)
 
  # Tool for generating required Raster files for CATFLOW Hillslope Wizard
 if toolname == 'hillslope_generator':
@@ -75,6 +72,16 @@ if toolname == 'hillslope_generator':
     wblib.distance(filled, elevation, streams)
     wblib.elevation(filled, distance, streams)
     logger.info('done.')   
+
+elif toolname == 'merge_tifs':
+    # get the parameters
+    inp = data_paths['in_file']
+    out = '/out/dem.tif'
+
+    # run the whitebox clip algorithm
+    logger.info(f"Merging DEMs in '{inp}'")
+    wblib.mosaic_tool(inp, out, method=kwargs.method)
+    logger.info('done.')
 
 # In any other case, it was not clear which tool to run
 else:
