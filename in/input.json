@@ -10,6 +10,14 @@
     },    	
         "data": {        
         "dem": "/in/dem.tif"
-    }   
-    }             
+    }
+    },
+    "merge_tifs": {   
+        "parameters": {        
+        "method":"nn"
+    }, 
+        "data": {        
+        "in_file": "/in"
+        }  
+    }       
 }

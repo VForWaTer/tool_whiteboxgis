@@ -21,3 +21,15 @@ tools:
          - tiff
          - tif
         description: The Input DEM file to be used for running the tool .TIFF format
+  merge_tifs:
+    title: Merge TIFF Files
+    description: Merges multiple TIFF files into a single raster file using [Whitebox GIS](https://www.whiteboxgeo.com/). 
+    parameters:
+      method: 
+        type: string
+        description: The method to use for merging the TIFF files. Options include 'nn', 'cc' and 'bilinear'.
+        default: 'nn'
+    data:
+      in_file:
+        description: Input directory containing TIFF files to merge.
+        example: /in/tiff_files/
