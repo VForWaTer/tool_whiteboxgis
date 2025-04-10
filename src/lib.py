@@ -56,6 +56,14 @@ def stream(inp,out,thres):
     thres, 
     )   
 
+    wbt.reclass(
+    input=out,
+    output='/out/streams_fixed.tif',
+    reclass_vals="nodata=>0"
+    )
+
+    os.replace("streams_fixed.tif", "streams.tif")
+
 def hillslope(inp,out,stream):
 
     wbt.hillslopes(
@@ -66,7 +74,7 @@ def hillslope(inp,out,stream):
 
 def elevation(inp,out,stream):
 
-    wbt.elevation_above_stream(
+    wbt.elevation_above_stream_euclidean(
     dem = inp, 
     streams = stream, 
     output = out 
@@ -74,11 +82,10 @@ def elevation(inp,out,stream):
 
 def distance(inp,out,stream):
 
-    wbt.downslope_distance_to_stream(
-    dem = inp, 
-    streams = stream, 
-    output = out 
-    )   
+    wbt.euclidean_distance(
+        i=inp,   # streams: 1 = stream, 0 = background
+        output="euclidean_dist.tif"
+    )  
 
 def mosaic_tool(input_dir, output_file, method):
     # Ensure the input directory exists

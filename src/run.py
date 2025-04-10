@@ -69,7 +69,7 @@ if toolname == 'hillslope_generator':
 
   #Elevation to River tool
     logger.info(f" Distance and Elevation from River '{streams}'...")
-    wblib.distance(filled, elevation, streams)
+    wblib.distance(streams,)
     wblib.elevation(filled, distance, streams)
     logger.info('done.')   
 
