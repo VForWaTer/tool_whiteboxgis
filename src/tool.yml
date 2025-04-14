@@ -9,7 +9,7 @@ tools:
         default: true    
   hillslope_generator:
     title: CATFLOW Hillslope Generator
-    description:  Produces the required Raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/) 
+    description: Produces the required Raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/) 
     parameters:             
       stream_threshold: 
         type: float
@@ -30,6 +30,6 @@ tools:
         description: The method to use for merging the TIFF files. Options include 'nn', 'cc' and 'bilinear'.
         default: 'nn'
     data:
-      in_file:
-        description: Input directory containing TIFF files to merge.
-        example: /in/tiff_files/
+      input_files:
+        description: List of input TIFF files to merge.
+        example: /in/*.tif
