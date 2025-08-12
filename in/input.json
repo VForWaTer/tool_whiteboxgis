@@ -1,23 +1,27 @@
 {
     "whitebox_info": {
         "parameters": {    
-        "toFile": true
-    }    
+            "toFile": true
+        }    
     },
     "hillslope_generator": {
         "parameters": {        
-        "stream_threshold":100
-    },    	
+            "stream_threshold": 100
+        },    	
         "data": {        
-        "dem": "/in/dem.tif"
-    }
+            "dem": "/in/dem.tif"
+        }
     },
     "merge_tifs": {   
         "parameters": {        
-        "method":"nn"
-    }, 
+            "method": "nn"
+        }, 
         "data": {        
-        "in_file": "/in"
+            "input_files": [
+                "/in/elevation_1100_part_1.tif",
+                "/in/elevation_1100_part_2.tif"
+            ]
         }  
     }       
 }
+

@@ -75,12 +75,19 @@ if toolname == 'hillslope_generator':
 
 elif toolname == 'merge_tifs':
     # get the parameters
-    inp = data_paths['in_file']
+    input_files = data_paths['input_files']
     out = '/out/dem.tif'
 
-    # run the whitebox clip algorithm
-    logger.info(f"Merging DEMs in '{inp}'")
-    wblib.mosaic_tool(inp, out, method=kwargs.method)
+    # Ensure input_files is a list
+    if not isinstance(input_files, list) or not input_files:
+        logger.error("No input files provided for merging.")
+        sys.exit(1)
+
+    # Log the input files
+    logger.info(f"Merging the following DEM files: {input_files}")
+
+    # Run the mosaic tool
+    wblib.mosaic_tool(input_files, out, method=kwargs.method)
     logger.info('done.')
 
 # In any other case, it was not clear which tool to run

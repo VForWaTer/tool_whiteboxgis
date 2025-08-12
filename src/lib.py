@@ -80,20 +80,14 @@ def distance(inp,out,stream):
     output = out 
     )   
 
-def mosaic_tool(input_dir, output_file, method):
-    # Ensure the input directory exists
-    if not os.path.exists(input_dir):
-        logger.error(f"Input directory '{input_dir}' does not exist.")
-        return
-
-    # Gather all TIFF files in the input directory
-    input_files = list(Path(input_dir).glob("*.tif"))
-    if not input_files:
-        logger.error(f"No TIFF files found in '{input_dir}'.")
+def mosaic_tool(input_files, output_file, method):
+    # Ensure the input files list is not empty
+    if not input_files or not isinstance(input_files, list):
+        logger.error("No input files provided for mosaicking.")
         return
 
     # Convert input files to a comma-separated string
-    input_files_str = ",".join(str(file) for file in input_files)
+    input_files_str = ",".join(input_files)
 
     # Log the input files being processed
     logger.info(f"Mosaicking the following files: {input_files_str}")
