@@ -90,14 +90,29 @@ This is a containerized version of WhiteboxGIS tools that implements workflows f
    }
    ```
 
-3. **Run with Docker:**  
+3. **Install Docker and Build the Container:**
+
+   - **Install Docker:**  
+     Download and install Docker Desktop from [https://www.docker.com/products/docker-desktop/](https://www.docker.com/products/docker-desktop/) and follow the installation instructions for your operating system.
+
+   - **Build the Docker image:**  
+     Open a terminal or command prompt in the project directory and run:
+     ```sh
+     docker build -t whitebox .
+     ```
+
+4. **Run with Docker:**  
    Use the following command to run the tool (replace `whitebox` with your Docker image name):
+
+   **Note:**  
+   Make sure to mount your local input and output directories to the container's `/in` and `/out` directories using the `-v` option.  
+   For example, if your local input files are in `local/in` and you want outputs in `local/out`, use:
 
    For **PowerShell**:
    ```powershell
    docker run --rm -it `
-     -v "E:/bwsync&share/03_Software/Github/tool_whiteboxgis/in:/in" `
-     -v "E:/bwsync&share/03_Software/Github/tool_whiteboxgis/out:/out" `
+     -v "${PWD}/local/in:/in" `
+     -v "${PWD}/local/out:/out" `
      -e TOOL_RUN=merge_tifs `
      whitebox
    ```
@@ -105,11 +120,13 @@ This is a containerized version of WhiteboxGIS tools that implements workflows f
    For **Command Prompt**:
    ```cmd
    docker run --rm -it ^
-     -v "E:/bwsync&share/03_Software/Github/tool_whiteboxgis/in:/in" ^
-     -v "E:/bwsync&share/03_Software/Github/tool_whiteboxgis/out:/out" ^
+     -v "%cd%/local/in:/in" ^
+     -v "%cd%/local/out:/out" ^
      -e TOOL_RUN=merge_tifs ^
      whitebox
    ```
+
+   *(Adjust the paths as needed for your environment.)*
 
 ---
 
@@ -143,7 +160,7 @@ This is a containerized version of WhiteboxGIS tools that implements workflows f
 - **Input JSON Example (CATFLOW Hillslope Generator):**
   ```json
   {
-    "catflow_hillslope_generator": {
+    "https://vforwater.github.io/tool-specs/": {
       "parameters": {
         "stream_threshold": 1000
       },
