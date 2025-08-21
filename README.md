@@ -160,7 +160,7 @@ This is a containerized version of WhiteboxGIS tools that implements workflows f
 - **Input JSON Example (CATFLOW Hillslope Generator):**
   ```json
   {
-    "https://vforwater.github.io/tool-specs/": {
+    "hillslope_generator": {
       "parameters": {
         "stream_threshold": 1000
       },
