@@ -137,3 +137,4 @@ desktop.ini
 #Output Folder
 out/
 src/run_docker.txt
+src/docker_commands.txt

@@ -12,14 +12,7 @@ import lib as wblib
 # parse parameters
 kwargs = get_parameter(typed=True)
 # check if a toolname was set in env
-toolname = os.environ.get('TOOL_RUN', 'whitebox_info').lower()
-
-# switch the tool
-if toolname == 'whitebox_info':
-    wblib.logger.info_info(to_file=kwargs.get('toFile', True))
-    sys.exit(0)
-
-
+toolname = os.environ.get('TOOL_RUN', 'hillslope_generator').lower()
 data_paths = get_data_paths()
 
  # Tool for generating required Raster files for CATFLOW Hillslope Wizard
@@ -90,6 +83,29 @@ elif toolname == 'merge_tifs':
     # Run the mosaic tool
     wblib.mosaic_tool(input_files, out, method=kwargs.method)
     logger.info('done.')
+
+
+elif toolname == 'reproject_to_metric':
+
+    # Pick an input raster sensibly
+    inp = data_paths['dem']
+    out = '/out/dem_reprojected.tif'
+
+    source_epsg = getattr(kwargs, 'source_epsg', 4326)
+    target_epsg = getattr(kwargs, 'target_epsg', 25832)
+    cell_size   = getattr(kwargs, 'cell_size', 30)
+    resampling  = getattr(kwargs, 'resampling', 'bilinear')
+
+    logger.info(f"Reprojecting '{inp}' → '{out}' (target_epsg={target_epsg}, cell_size={cell_size}, resampling={resampling})")
+    wblib.reproject_to_metric(
+        input_path=inp,
+        output_path=out,
+        source_epsg=source_epsg,   
+        target_epsg=target_epsg,
+        cell_size=cell_size,
+        resampling=resampling
+    )
+    logger.info(f"Done. ")    
 
 # In any other case, it was not clear which tool to run
 else:

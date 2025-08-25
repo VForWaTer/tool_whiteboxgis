@@ -1,12 +1,4 @@
 tools:
-  whitebox_info:
-    title: WhiteboxGIS version info
-    description: Return the output of WhiteboxGIS version information
-    parameters:
-      toFile: 
-        type: bool
-        description: If True, an INFO.txt will be written
-        default: true    
   hillslope_generator:
     title: CATFLOW Hillslope Generator
     description: Produces the required Raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/) 
@@ -33,3 +25,32 @@ tools:
       input_files:
         description: List of input TIFF files to merge.
         example: /in/*.tif
+  reproject_to_metric:
+    title: Reproject to Metric CRS
+    description: Reproject a raster into a metric CRS (defaults to EPSG:25832 for Karlsruhe/Baden‑Württemberg) with a specified cell size.
+    parameters:
+      source_epsg:
+        type: integer
+        description: Source EPSG code; if invalid or not provided, defaults to EPSG:4326.
+        default: 4326
+      target_epsg:
+        type: integer
+        description: Target EPSG code; if invalid or not provided, defaults to EPSG:25832.
+        default: 25832  
+      cell_size:
+        type: integer
+        default: 30
+        description: Output pixel size in meters.
+      resampling:
+        type: string
+        enum: ["nearest", "bilinear", "cubic"]
+        default: "bilinear"
+    data:
+      dem:
+        example: /in/dem.tif
+        extension: 
+         - tiff
+         - tif
+        description: The Input DEM file to be reprojected.
+
+
