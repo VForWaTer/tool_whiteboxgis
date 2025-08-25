@@ -91,6 +91,27 @@ elif toolname == 'merge_tifs':
     wblib.mosaic_tool(input_files, out, method=kwargs.method)
     logger.info('done.')
 
+
+elif toolname == 'reproject_to_metric':
+
+    # Pick an input raster sensibly
+    inp = data_paths['dem']
+    out = '/out/dem_reprojected.tif'
+
+    target_epsg = kwargs.get('target_epsg', 25832)
+    cell_size = kwargs.get('cell_size', 30)  
+    resampling = kwargs.get('resampling', 'bilinear')
+
+    logger.info(f"Reprojecting '{inp}' → '{out}' (target_epsg={target_epsg}, cell_size={cell_size}, resampling={resampling})")
+    meta = wblib.reproject_to_metric(
+        input_path=inp,
+        output_path=out,
+        target_epsg=target_epsg,
+        cell_size=cell_size,
+        resampling=resampling
+    )
+    logger.info(f"Done. {meta}")    
+
 # In any other case, it was not clear which tool to run
 else:
     raise AttributeError(f"[{dt.now().isocalendar()}] Either no TOOL_RUN environment variable available, or '{toolname}' is not valid.\n")

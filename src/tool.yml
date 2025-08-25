@@ -33,3 +33,27 @@ tools:
       input_files:
         description: List of input TIFF files to merge.
         example: /in/*.tif
+  reproject_to_metric:
+    description: Reproject a raster into a metric CRS (defaults to EPSG:25832 for Karlsruhe/Baden‑Württemberg) with a specified cell size.
+    parameters:
+      target_epsg:
+        type: integer
+        description: Target EPSG code; if invalid or not provided, defaults to EPSG:25832.
+        default: 25832  
+      cell_size:
+        type: integer
+        default: 30
+        description: Output pixel size in meters.
+      resampling:
+        type: string
+        enum: ["nearest", "bilinear", "cubic"]
+        default: "bilinear"
+    data:
+      dem:
+        example: /in/dem.tif
+        extension: 
+         - tiff
+         - tif
+        description: The Input DEM file to be reprojected.
+
+
