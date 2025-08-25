@@ -26,6 +26,7 @@ tools:
         description: List of input TIFF files to merge.
         example: /in/*.tif
   reproject_to_metric:
+    title: Reproject to Metric CRS
     description: Reproject a raster into a metric CRS (defaults to EPSG:25832 for Karlsruhe/Baden‑Württemberg) with a specified cell size.
     parameters:
       source_epsg:

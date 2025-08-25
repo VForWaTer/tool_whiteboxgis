@@ -10,7 +10,7 @@ It follows the [Tool Specification](https://vforwater.github.io/tool-specs) for 
 
 ## Accessing the Container
 
-You can use the pre-built container image directly from the GitHub Container Registry without building or installing Docker locally.
+You can use the pre-built container image directly from the GitHub Container Registry without building the image locally.
 
 To pull the latest release, use:
 

@@ -111,14 +111,14 @@ _RESAMPLE = {
     'cubic': Resampling.cubic,
 }        
 
-def _valid_epsg_or_default(epsg):
+def _valid_epsg_or_default(epsg, default=DEFAULT_EPSG):
     """Return a valid EPSG integer or DEFAULT_EPSG if missing/invalid."""
     try:
         epsg_int = int(epsg)
         CRS.from_epsg(epsg_int)  # raises if invalid
         return epsg_int
     except Exception:
-        return DEFAULT_EPSG
+        return default
 
 def _parse_resampling(name: str):
     return _RESAMPLE.get(str(name).lower(), Resampling.bilinear)
@@ -130,7 +130,6 @@ def reproject_to_metric(input_path: str,
                         target_epsg=25832,
                         cell_size=30,
                         resampling='bilinear'):
-    # ... (checks as before)
 
     src = rxr.open_rasterio(input_path, masked=True)
     nodata = src.rio.nodata
@@ -154,10 +153,10 @@ def reproject_to_metric(input_path: str,
     )
 
     if needs_assign:
-        sepsg = _valid_epsg_or_default(source_epsg)  # e.g., 4326
+        sepsg = _valid_epsg_or_default(source_epsg, default=4326)  # e.g., 4326
         src = src.rio.write_crs(CRS.from_epsg(sepsg), inplace=False)
 
-    tgt_epsg = _valid_epsg_or_default(target_epsg)
+    tgt_epsg = _valid_epsg_or_default(target_epsg, default=25832)
     tgt_crs = CRS.from_epsg(tgt_epsg)
     resamp_enum = _parse_resampling(resampling)
 

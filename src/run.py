@@ -12,7 +12,7 @@ import lib as wblib
 # parse parameters
 kwargs = get_parameter(typed=True)
 # check if a toolname was set in env
-toolname = os.environ.get('TOOL_RUN', 'whitebox_info').lower()
+toolname = os.environ.get('TOOL_RUN', 'hillslope_generator').lower()
 data_paths = get_data_paths()
 
  # Tool for generating required Raster files for CATFLOW Hillslope Wizard
