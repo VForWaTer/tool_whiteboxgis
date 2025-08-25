@@ -1,12 +1,4 @@
 tools:
-  whitebox_info:
-    title: WhiteboxGIS version info
-    description: Return the output of WhiteboxGIS version information
-    parameters:
-      toFile: 
-        type: bool
-        description: If True, an INFO.txt will be written
-        default: true    
   hillslope_generator:
     title: CATFLOW Hillslope Generator
     description: Produces the required Raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/) 

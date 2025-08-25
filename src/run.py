@@ -13,13 +13,6 @@ import lib as wblib
 kwargs = get_parameter(typed=True)
 # check if a toolname was set in env
 toolname = os.environ.get('TOOL_RUN', 'whitebox_info').lower()
-
-# switch the tool
-if toolname == 'whitebox_info':
-    wblib.logger.info_info(to_file=kwargs.get('toFile', True))
-    sys.exit(0)
-
-
 data_paths = get_data_paths()
 
  # Tool for generating required Raster files for CATFLOW Hillslope Wizard

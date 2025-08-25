@@ -1,9 +1,4 @@
 {
-    "whitebox_info": {
-        "parameters": {    
-            "toFile": true
-        }    
-    },
     "hillslope_generator": {
         "parameters": {        
             "stream_threshold": 10000
