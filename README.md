@@ -65,8 +65,7 @@ or rebuild locally to get the newest features and fixes.
 ---
 
 ### Reproject to Metric CRS
-**Description:** Reproject a raster into a metric CRS (defaults to EPSG:25832 for Karlsruhe/Baden‑Württemberg) with a specified cell size.
-  Note: When chaining tools, run reproject_to_metric immediately before hydrological analyses to ensure distance-based outputs are in meters.
+**Description:** Reproject a raster into a metric CRS (defaults to EPSG:25832 for Karlsruhe/Baden‑Württemberg) with a specified cell size. Note: When chaining tools, run reproject_to_metric immediately before hydrological analyses to ensure distance-based outputs are in meters.
 **Parameters:**
 - `target_epsg` (integer, optional): Target EPSG code; if invalid or not provided, defaults to EPSG:25832.
 - `cell_size` (number, optional, default: 30): Output pixel size in meters.
