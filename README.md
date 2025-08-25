@@ -8,6 +8,13 @@
 
 This is a containerized version of WhiteboxGIS tools that implements workflows for a number of analyses. It follows the [Tool Specification](https://vforwater.github.io/tool-specs/) for reusable research software using Docker.
 
+**Docker Image Updates:**  
+You can always pull the latest released version of this tool from the GitHub Container Registry using:
+```sh
+docker pull ghcr.io/vforwater/tbr_whitebox:latest
+```
+or rebuild locally to get the newest features and fixes.
+
 ---
 
 ## Table of Contents
@@ -23,14 +30,6 @@ This is a containerized version of WhiteboxGIS tools that implements workflows f
 ---
 
 ## Tools
-
-### WhiteboxGIS Version Info
-**Description:** Returns the output of WhiteboxGIS version information.
-
-**Parameters:**
-- `toFile` (bool): If `True`, an `INFO.txt` file will be written (default: `true`).
-
----
 
 ### CATFLOW Hillslope Generator
 **Description:** Produces the required raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/).
@@ -62,6 +61,23 @@ This is a containerized version of WhiteboxGIS tools that implements workflows f
 
 **Output:**
 - Merged raster file saved to `/out/dem.tif`.
+
+---
+
+### Reproject to Metric CRS
+**Description:** Reproject a raster into a metric CRS (defaults to EPSG:25832 for Karlsruhe/Baden‑Württemberg) with a specified cell size.
+
+**Parameters:**
+- `target_epsg` (integer, optional): Target EPSG code; if invalid or not provided, defaults to EPSG:25832.
+- `cell_size` (number, optional, default: 30): Output pixel size in meters.
+- `resampling` (string, optional, default: "bilinear"): Resampling method. Options: `"nearest"`, `"bilinear"`, `"cubic"`.
+
+**Data:**
+- `dem` (file): The input DEM file to be reprojected (.TIFF/.TIF format).
+  - Example: `/in/dem.tif`.
+
+**Output:**
+- Reprojected raster file saved to `/out/reprojected.tif` (or specified output path).
 
 ---
 
@@ -163,6 +179,23 @@ This is a containerized version of WhiteboxGIS tools that implements workflows f
     "hillslope_generator": {
       "parameters": {
         "stream_threshold": 1000
+      },
+      "data": {
+        "dem": "/in/dem.tif"
+      }
+    }
+  }
+  ```
+
+- **Input JSON Example (Reproject to Metric CRS):**
+  ```json
+  {
+    "reproject_to_metric": {
+      "parameters": {
+        "target_epsg": 25832,
+        "cell_size": 30,
+        "resampling": "bilinear",
+        "source_epsg": 4326
       },
       "data": {
         "dem": "/in/dem.tif"
