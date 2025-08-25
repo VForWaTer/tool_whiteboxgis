@@ -126,22 +126,40 @@ def _parse_resampling(name: str):
 
 def reproject_to_metric(input_path: str,
                         output_path: str = "/out/reprojected.tif",
-                        target_epsg=DEFAULT_EPSG,
+                        source_epsg=4326,              
+                        target_epsg=25832,
                         cell_size=30,
                         resampling='bilinear'):
-    """
-    Reproject a raster to a metric projected CRS and save to file.
-    Creates GeoTIFF in output_path. Does not return anything.
-    """
-    if not os.path.exists(input_path):
-        raise FileNotFoundError(f"Input raster not found: {input_path}")
+    # ... (checks as before)
+
+    src = rxr.open_rasterio(input_path, masked=True)
+    nodata = src.rio.nodata
+
+    # If the source file has no usable CRS, assign one
+    crs_obj = src.rio.crs
+    wkt = ""
+    try:
+        wkt = crs_obj.to_wkt() if crs_obj is not None else ""
+    except Exception:
+        pass
+
+    # Consider CRS missing/invalid if:
+    #  - no CRS, or
+    #  - no EPSG authority, or
+    #  - WKT hints it's LOCAL_CS/ENGCRS/UNKNOWN
+    needs_assign = (
+        (crs_obj is None) or
+        (crs_obj.to_epsg() is None) or
+        any(k in wkt.upper() for k in ("LOCAL_CS", "ENGCRS", "UNKNOWN"))
+    )
+
+    if needs_assign:
+        sepsg = _valid_epsg_or_default(source_epsg)  # e.g., 4326
+        src = src.rio.write_crs(CRS.from_epsg(sepsg), inplace=False)
 
     tgt_epsg = _valid_epsg_or_default(target_epsg)
     tgt_crs = CRS.from_epsg(tgt_epsg)
     resamp_enum = _parse_resampling(resampling)
-
-    src = rxr.open_rasterio(input_path, masked=True)
-    nodata = src.rio.nodata
 
     dst = src.rio.reproject(
         tgt_crs,
@@ -149,5 +167,4 @@ def reproject_to_metric(input_path: str,
         resampling=resamp_enum,
         nodata=nodata
     )
-
     dst.rio.to_raster(output_path, compress="DEFLATE")

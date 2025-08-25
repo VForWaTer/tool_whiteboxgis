@@ -6,10 +6,10 @@
     },
     "hillslope_generator": {
         "parameters": {        
-            "stream_threshold": 100
+            "stream_threshold": 10000
         },    	
         "data": {        
-            "dem": "/in/dem.tif"
+            "dem": "/in/dem_reprojected.tif"
         }
     },
     "merge_tifs": {   
@@ -22,6 +22,17 @@
                 "/in/elevation_1100_part_2.tif"
             ]
         }  
-    }       
+    },
+    "reproject_to_metric": {
+        "parameters": {
+            "target_epsg": 25832,
+            "cell_size": 30,
+            "resampling": "bilinear",
+            "source_epsg": 4326
+        },
+        "data": {
+            "dem": "/in/dem.tif"
+        }
+    }
 }
 

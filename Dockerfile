@@ -36,12 +36,6 @@ RUN curl -fsSL https://www.whiteboxgeo.com/WBT_Linux/WhiteboxTools_linux_amd64.z
     mv WhiteboxTools_linux_amd64/WBT /src/WBT && \
     rm -rf WhiteboxTools_linux_amd64
 
-# Make sure WBT binary is executable
-RUN chmod +x /src/WBT/WhiteboxTools
-
-# (Optional) Put WBT on PATH so subprocess calls don’t need full path
-ENV PATH="/src/WBT:${PATH}"
-
 WORKDIR /src
 CMD ["python", "run.py"]
 

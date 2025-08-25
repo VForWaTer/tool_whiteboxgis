@@ -98,19 +98,21 @@ elif toolname == 'reproject_to_metric':
     inp = data_paths['dem']
     out = '/out/dem_reprojected.tif'
 
-    target_epsg = kwargs.get('target_epsg', 25832)
-    cell_size = kwargs.get('cell_size', 30)  
-    resampling = kwargs.get('resampling', 'bilinear')
+    source_epsg = getattr(kwargs, 'source_epsg', 4326)
+    target_epsg = getattr(kwargs, 'target_epsg', 25832)
+    cell_size   = getattr(kwargs, 'cell_size', 30)
+    resampling  = getattr(kwargs, 'resampling', 'bilinear')
 
     logger.info(f"Reprojecting '{inp}' → '{out}' (target_epsg={target_epsg}, cell_size={cell_size}, resampling={resampling})")
-    meta = wblib.reproject_to_metric(
+    wblib.reproject_to_metric(
         input_path=inp,
         output_path=out,
+        source_epsg=source_epsg,   
         target_epsg=target_epsg,
         cell_size=cell_size,
         resampling=resampling
     )
-    logger.info(f"Done. {meta}")    
+    logger.info(f"Done. ")    
 
 # In any other case, it was not clear which tool to run
 else:

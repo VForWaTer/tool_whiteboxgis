@@ -36,6 +36,10 @@ tools:
   reproject_to_metric:
     description: Reproject a raster into a metric CRS (defaults to EPSG:25832 for Karlsruhe/Baden‑Württemberg) with a specified cell size.
     parameters:
+      source_epsg:
+        type: integer
+        description: Source EPSG code; if invalid or not provided, defaults to EPSG:4326.
+        default: 4326
       target_epsg:
         type: integer
         description: Target EPSG code; if invalid or not provided, defaults to EPSG:25832.
