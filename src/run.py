@@ -72,13 +72,8 @@ elif toolname == 'merge_tifs':
     input_files = data_paths['input_files']
     out = '/out/dem.tif'
 
-    # Ensure input_files is a list
-    if not isinstance(input_files, list) or not input_files:
-        logger.error("No input files provided for merging.")
-        sys.exit(1)
-
     # Log the input files
-    logger.info(f"Merging the following DEM files: {input_files}")
+    logger.info(f"Merging the DEM files in: {input_files}")
 
     # Run the mosaic tool
     wblib.mosaic_tool(input_files, out, method=kwargs.method)

@@ -83,14 +83,20 @@ def distance(inp,out,stream):
     output = out 
     )   
 
-def mosaic_tool(input_files, output_file, method):
-    # Ensure the input files list is not empty
-    if not input_files or not isinstance(input_files, list):
-        logger.error("No input files provided for mosaicking.")
+def mosaic_tool(input_dir, output_file, method):
+    # Ensure the input directory exists
+    if not os.path.exists(input_dir):
+        logger.error(f"Input directory '{input_dir}' does not exist.")
+        return
+
+    # Gather all TIFF and TIFF files in the input directory
+    input_files = list(Path(input_dir).glob("*.tif")) + list(Path(input_dir).glob("*.tiff"))
+    if not input_files:
+        logger.error(f"No TIFF or TIF files found in '{input_dir}'.")
         return
 
     # Convert input files to a comma-separated string
-    input_files_str = ",".join(input_files)
+    input_files_str = ",".join(str(file) for file in input_files)
 
     # Log the input files being processed
     logger.info(f"Mosaicking the following files: {input_files_str}")
@@ -101,7 +107,6 @@ def mosaic_tool(input_files, output_file, method):
         logger.info(f"Mosaic created successfully and saved to '{output_file}'.")
     except Exception as e:
         logger.error(f"An error occurred while creating the mosaic: {e}")
-
 
 DEFAULT_EPSG = 25832  # ETRS89 / UTM 32N (Karlsruhe / Baden-Württemberg)
 
