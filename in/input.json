@@ -12,10 +12,7 @@
             "method": "nn"
         }, 
         "data": {        
-            "input_files": [
-                "/in/elevation_1100_part_1.tif",
-                "/in/elevation_1100_part_2.tif"
-            ]
+            "input_files": "/in/"
         }  
     },
     "reproject_to_metric": {
