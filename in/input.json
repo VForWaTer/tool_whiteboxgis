@@ -1,5 +1,5 @@
 {
-    "hillslope_generator": {
+    "catchment_builder": {
         "parameters": {        
             "stream_threshold": 10000
         },    	

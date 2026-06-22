@@ -16,7 +16,7 @@ toolname = os.environ.get('TOOL_RUN', 'hillslope_generator').lower()
 data_paths = get_data_paths()
 
  # Tool for generating required Raster files for CATFLOW Hillslope Wizard
-if toolname == 'hillslope_generator':
+if toolname == 'catchment_builder':
     # get the parameters
     #thres = kwargs.get('stream_threshold', 100.0)
 
@@ -27,6 +27,7 @@ if toolname == 'hillslope_generator':
     accu = '/out/flow_accumulation.tif'
     flowdir = '/out/flow_direction.tif'
     streams = '/out/streams.tif'
+    strahler = '/out/streams_strahler.tif'
     hillslope = '/out/hillslopes.tif'
     elevation = '/out/elevation.tif'
     distance = '/out/distance.tif'
@@ -55,6 +56,11 @@ if toolname == 'hillslope_generator':
     logger.info(f"Stream Extraction from '{accu}'...")
     wblib.stream(accu,streams, kwargs.stream_threshold)
     logger.info('done.')     
+
+    #Stream strahler Extraction tool
+    logger.info(f"Strahler Order Extraction from '{streams}'...")
+    wblib.stream_strahler(flowdir, streams, strahler)
+    logger.info('done.')  
 
    #Hillslope Extraction tool
     logger.info(f"Hillslope Extraction from  '{flowdir}'...")

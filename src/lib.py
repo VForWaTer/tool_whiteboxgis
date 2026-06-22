@@ -59,6 +59,17 @@ def stream(inp,out,thres):
     thres, 
     )   
 
+def stream_strahler(inp1,inp2,out):
+
+    # Strahler order
+    wbt.strahler_stream_order(
+        d8_pntr=inp1,
+        streams=inp2,
+        output=out
+    )  
+
+
+
 def hillslope(inp,out,stream):
 
     wbt.hillslopes(

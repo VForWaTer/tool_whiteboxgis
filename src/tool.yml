@@ -1,7 +1,7 @@
 tools:
-  hillslope_generator:
-    title: CATFLOW Hillslope Generator
-    description: Produces the required Raster (.TIFF) files for running the CATFLOW Hillslope Wizard Tool using [Whitebox GIS](https://www.whiteboxgeo.com/) 
+  catchment_builder:
+    title: DEM Hydrological Preprocessing Workflow
+    description: Produces the required Raster (.TIFF) files for running hydrological models using [Whitebox GIS](https://www.whiteboxgeo.com/) 
     parameters:             
       stream_threshold: 
         type: float
